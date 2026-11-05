@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Eventix.SharedKernel/Eventix.SharedKernel.csproj" />
+  </Folder>
+  <Folder Name="/src/Eventix.EventCatalog/">
+    <Project Path="src/Eventix.EventCatalog/Eventix.EventCatalog.API/Eventix.EventCatalog.API.csproj" />
+    <Project Path="src/Eventix.EventCatalog/Eventix.EventCatalog.Application/Eventix.EventCatalog.Application.csproj" />
+    <Project Path="src/Eventix.EventCatalog/Eventix.EventCatalog.Domain/Eventix.EventCatalog.Domain.csproj" />
+    <Project Path="src/Eventix.EventCatalog/Eventix.EventCatalog.Infrastructure/Eventix.EventCatalog.Infrastructure.csproj" />
+  </Folder>
+</Solution>
