@@ -1,4 +1,4 @@
-name: Eventix CI
+name: Eventix CI/CD
 
 on:
   push:
@@ -8,6 +8,8 @@ on:
 env:
   REGISTRY: eventixacrg614.azurecr.io
   IMAGE_NAME: eventcatalog-api
+  RESOURCE_GROUP: rg-eventix-dev
+  CONTAINER_APP_NAME: eventix-api
 
 jobs:
   build-and-push:
@@ -37,3 +39,51 @@ jobs:
       - name: Summary
         run: |
           echo "✅ Image pushed: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+
+  migrate-database:
+    name: Run Database Migrations
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Install EF Core Tools
+        run: dotnet tool install --global dotnet-ef
+
+      - name: Run Database Migrations
+        run: |
+          export PATH="$PATH:$HOME/.dotnet/tools"
+          dotnet ef database update \
+            --project src/Eventix.EventCatalog/Eventix.EventCatalog.Infrastructure/Eventix.EventCatalog.Infrastructure.csproj \
+            --startup-project src/Eventix.EventCatalog/Eventix.EventCatalog.API/Eventix.EventCatalog.API.csproj \
+            --connection "${{ secrets.AZURE_POSTGRES_CONNECTION_STRING }}"
+
+      - name: Summary
+        run: echo "✅ Database migrations completed successfully"
+
+  deploy:
+    name: Deploy to Azure Container Apps
+    needs: migrate-database
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to Container Apps
+        run: |
+          az containerapp update \
+            --name ${{ env.CONTAINER_APP_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      - name: Summary
+        run: |
+          echo "🚀 Deployed ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} to ${{ env.CONTAINER_APP_NAME }}"
