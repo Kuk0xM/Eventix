@@ -12,7 +12,7 @@ namespace Eventix.EventCatalog.Infrastructure.Persistence;
 /// </summary>
 public class EventCatalogDbContext : DbContext
 {
-    private readonly PublishDomainEventsInterceptor _publishDomainEventsInterceptor;
+    private readonly PublishDomainEventsInterceptor? _publishDomainEventsInterceptor;
 
     public DbSet<Event> Events => Set<Event>();
     public DbSet<Venue> Venues => Set<Venue>();
@@ -20,7 +20,7 @@ public class EventCatalogDbContext : DbContext
 
     public EventCatalogDbContext(
         DbContextOptions<EventCatalogDbContext> options,
-        PublishDomainEventsInterceptor publishDomainEventsInterceptor)
+        PublishDomainEventsInterceptor? publishDomainEventsInterceptor = null)
         : base(options)
     {
         _publishDomainEventsInterceptor = publishDomainEventsInterceptor;
@@ -37,7 +37,10 @@ public class EventCatalogDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         // Add our custom interceptor for publishing domain events
-        optionsBuilder.AddInterceptors(_publishDomainEventsInterceptor);
+        if (_publishDomainEventsInterceptor is not null)
+        {
+            optionsBuilder.AddInterceptors(_publishDomainEventsInterceptor);
+        }
 
         base.OnConfiguring(optionsBuilder);
     }
