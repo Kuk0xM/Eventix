@@ -3,6 +3,7 @@ using Eventix.EventCatalog.API.HealthChecks;
 using Eventix.EventCatalog.API.Telemetry;
 using Eventix.EventCatalog.Application;
 using Eventix.EventCatalog.Infrastructure;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.OpenApi;
 using Serilog;
 
@@ -41,6 +42,14 @@ try
         });
     });
 
+    // Trust the Azure Container Apps proxy for X-Forwarded-* headers
+    builder.Services.Configure<ForwardedHeadersOptions>(options =>
+    {
+        options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+        options.KnownIPNetworks.Clear();
+        options.KnownProxies.Clear();
+    });
+
     // Application layer (MediatR handlers)
     builder.Services.AddApplication();
 
@@ -54,6 +63,8 @@ try
     builder.Services.AddEventixHealthChecks(builder.Configuration);
 
     var app = builder.Build();
+
+    app.UseForwardedHeaders();
 
     // Serilog request logging
     app.UseSerilogRequestLogging(options =>
