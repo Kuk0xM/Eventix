@@ -53,6 +53,9 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
+      - name: Restore dependencies
+        run: dotnet restore src/Eventix.EventCatalog/Eventix.EventCatalog.API/Eventix.EventCatalog.API.csproj
+
       - name: Install EF Core Tools
         run: dotnet tool install --global dotnet-ef
 
