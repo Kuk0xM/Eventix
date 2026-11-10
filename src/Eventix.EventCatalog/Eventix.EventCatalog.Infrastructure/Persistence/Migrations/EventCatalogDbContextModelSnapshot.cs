@@ -127,8 +127,7 @@ namespace Eventix.EventCatalog.Infrastructure.Persistence.Migrations
                                 .HasForeignKey("VenueId");
                         });
 
-                    b.Navigation("Location")
-                        .IsRequired();
+                    b.Navigation("Location");
                 });
 #pragma warning restore 612, 618
         }
