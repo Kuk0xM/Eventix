@@ -9,7 +9,7 @@ public class Venue : Entity<Guid>
 {
     public string Name { get; private set; } = default!;
     public int Capacity { get; private set; }
-    public VenueLocation Location { get; private set; }
+    public VenueLocation? Location { get; private set; }
 
     // Private constructor for EF Core (Hydration)
     private Venue() { }

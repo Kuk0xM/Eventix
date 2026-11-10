@@ -1,4 +1,14 @@
 <Solution>
+  <Folder Name="/Eventix.MicroserviceChassis/" />
+  <Folder Name="/Eventix.MicroserviceChassis/src/">
+    <Project Path="Eventix.MicroserviceChassis/src/Eventix.Chassis.Core/Eventix.Chassis.Core.csproj" />
+    <Project Path="Eventix.MicroserviceChassis/src/Eventix.Chassis.Infrastructure/Eventix.Chassis.Infrastructure.csproj" />
+    <Project Path="Eventix.MicroserviceChassis/src/Eventix.Chassis.Testing/Eventix.Chassis.Testing.csproj" />
+  </Folder>
+  <Folder Name="/Eventix.MicroserviceChassis/tests/">
+    <Project Path="Eventix.MicroserviceChassis/tests/Eventix.Chassis.Core.Tests/Eventix.Chassis.Core.Tests.csproj" />
+    <Project Path="Eventix.MicroserviceChassis/tests/Eventix.Chassis.Integration.Tests/Eventix.Chassis.Integration.Tests.csproj" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="src/Eventix.SharedKernel/Eventix.SharedKernel.csproj" />
   </Folder>
