@@ -1,5 +1,6 @@
 using Eventix.Chassis.Core.Messaging;
 using Eventix.Chassis.Infrastructure.Messaging;
+using Eventix.Chassis.Infrastructure.Persistence;
 using Eventix.Chassis.Infrastructure.Persistence.Outbox;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +33,7 @@ public static class EventixChassisExtensions
         this IServiceCollection services,
         IConfiguration configuration,
         string serviceName = "default")
-        where TContext : DbContext
+        where TContext : ChassisDbContext<TContext>
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection")
             ?? throw new InvalidOperationException(
@@ -91,9 +92,11 @@ public static class EventixChassisExtensions
             });
 
             // Register the Outbox interceptor so domain events are captured automatically
-            var outboxInterceptor = new OutboxSaveChangesInterceptor();
-            options.AddInterceptors(outboxInterceptor);
+            options.AddInterceptors(new DomainEventDispatcherInterceptor());
         });
+
+        // Outbox publisher: enqueues integration events into the current transaction
+        services.AddScoped(typeof(IOutboxPublisher), typeof(EfCoreOutboxPublisher<TContext>));
 
         // 3. Register Outbox worker
         services.AddHostedService<OutboxWorker<TContext>>();
