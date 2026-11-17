@@ -1,47 +1,27 @@
+using Eventix.Chassis.Infrastructure.Persistence;
 using Eventix.EventCatalog.Domain.Events;
 using Eventix.EventCatalog.Domain.Venues;
-using Eventix.EventCatalog.Infrastructure.Persistence.Interceptors;
-using Eventix.EventCatalog.Infrastructure.Persistence.Outbox;
 using Microsoft.EntityFrameworkCore;
 
 namespace Eventix.EventCatalog.Infrastructure.Persistence;
 
 /// <summary>
-/// Database context for the EventCatalog microservice.
-/// Each microservice owns its own DbContext (Database-per-service pattern).
+/// EventCatalog DbContext that inherits from ChassisDbContext.
+/// The Chassis provides:
+/// - OutboxMessages DbSet (for the Outbox Pattern)
+/// - DomainEventDispatcherInterceptor (dispatches domain events via MediatR)
+/// - OutboxWorker (publishes pending messages to RabbitMQ)
 /// </summary>
-public class EventCatalogDbContext : DbContext
+public class EventCatalogDbContext : ChassisDbContext<EventCatalogDbContext>
 {
-    private readonly PublishDomainEventsInterceptor? _publishDomainEventsInterceptor;
-
     public DbSet<Event> Events => Set<Event>();
     public DbSet<Venue> Venues => Set<Venue>();
-    public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
 
-    public EventCatalogDbContext(
-        DbContextOptions<EventCatalogDbContext> options,
-        PublishDomainEventsInterceptor? publishDomainEventsInterceptor = null)
-        : base(options)
-    {
-        _publishDomainEventsInterceptor = publishDomainEventsInterceptor;
-    }
+    public EventCatalogDbContext(DbContextOptions<EventCatalogDbContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Apply all configurations from this assembly
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(EventCatalogDbContext).Assembly);
-
         base.OnModelCreating(modelBuilder);
-    }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        // Add our custom interceptor for publishing domain events
-        if (_publishDomainEventsInterceptor is not null)
-        {
-            optionsBuilder.AddInterceptors(_publishDomainEventsInterceptor);
-        }
-
-        base.OnConfiguring(optionsBuilder);
     }
 }

@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Eventix.SharedKernel\Eventix.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\..\Eventix.MicroserviceChassis\src\Eventix.Chassis.Core\Eventix.Chassis.Core.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

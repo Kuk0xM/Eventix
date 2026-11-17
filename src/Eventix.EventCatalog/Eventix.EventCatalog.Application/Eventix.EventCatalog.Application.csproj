@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Eventix.EventCatalog.Domain\Eventix.EventCatalog.Domain.csproj" />
     <ProjectReference Include="..\..\Eventix.SharedKernel\Eventix.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\..\Eventix.MicroserviceChassis\src\Eventix.Chassis.Core\Eventix.Chassis.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

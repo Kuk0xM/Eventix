@@ -13,15 +13,13 @@ public sealed class ChassisTestContainers : IAsyncDisposable
 
     public ChassisTestContainers()
     {
-        Postgres = new PostgreSqlBuilder()
-            .WithImage("postgres:16-alpine")
+        Postgres = new PostgreSqlBuilder("postgres:16-alpine")
             .WithDatabase("eventix_test")
             .WithUsername("postgres")
             .WithPassword("postgres")
             .Build();
 
-        RabbitMq = new RabbitMqBuilder()
-            .WithImage("rabbitmq:3-management-alpine")
+        RabbitMq = new RabbitMqBuilder("rabbitmq:3-management-alpine")
             .Build();
     }
 

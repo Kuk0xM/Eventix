@@ -1,12 +1,13 @@
-using Eventix.SharedKernel.Domain;
+using Eventix.Chassis.Core.Events;
 
 namespace Eventix.EventCatalog.Domain.Events;
 
 /// <summary>
 /// Domain event indicating that a new event has been created in the catalog.
 /// This is a RICH event because consumers have no prior knowledge of this entity.
+/// OccurredOn is inherited from the Chassis DomainEvent base.
 /// </summary>
-public sealed record EventCreatedEvent : IDomainEvent
+public sealed record EventCreatedEvent : DomainEvent
 {
     public Guid EventId { get; init; }
     public string Name { get; init; }
@@ -14,7 +15,6 @@ public sealed record EventCreatedEvent : IDomainEvent
     public EventDate EndDate { get; init; }
     public Guid VenueId { get; init; }
     public EventStatus Status { get; init; }
-    public DateTime OccurredOn { get; init; }
 
     public EventCreatedEvent(
         Guid eventId,
@@ -30,6 +30,5 @@ public sealed record EventCreatedEvent : IDomainEvent
         EndDate = endDate;
         VenueId = venueId;
         Status = status;
-        OccurredOn = DateTime.UtcNow;
     }
 }
