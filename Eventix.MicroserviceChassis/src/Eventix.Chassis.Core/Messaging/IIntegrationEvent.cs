@@ -1,3 +1,5 @@
+using MediatR;
+
 namespace Eventix.Chassis.Core.Messaging;
 
 /// <summary>
@@ -32,7 +34,7 @@ public interface IIntegrationEvent
 /// Base record implementation with sensible defaults.
 /// Inherit from this for your integration events.
 /// </summary>
-public abstract record IntegrationEventBase : IIntegrationEvent
+public abstract record IntegrationEventBase : IIntegrationEvent, INotification
 {
     public Guid EventId { get; init; } = Guid.NewGuid();
     public DateTime OccurredAt { get; init; } = DateTime.UtcNow;

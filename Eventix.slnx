@@ -1,6 +1,8 @@
 <Solution>
   <Folder Name="/Eventix.MicroserviceChassis/" />
   <Folder Name="/Eventix.MicroserviceChassis/src/">
+    <Project Path="Eventix.MicroserviceChassis/src/Eventix.Chassis.Api/Eventix.Chassis.Api.csproj" />
+    <Project Path="Eventix.MicroserviceChassis/src/Eventix.Chassis.Application/Eventix.Chassis.Application.csproj" />
     <Project Path="Eventix.MicroserviceChassis/src/Eventix.Chassis.Core/Eventix.Chassis.Core.csproj" />
     <Project Path="Eventix.MicroserviceChassis/src/Eventix.Chassis.Infrastructure/Eventix.Chassis.Infrastructure.csproj" />
     <Project Path="Eventix.MicroserviceChassis/src/Eventix.Chassis.Testing/Eventix.Chassis.Testing.csproj" />
@@ -12,10 +14,27 @@
   <Folder Name="/src/">
     <Project Path="src/Eventix.SharedKernel/Eventix.SharedKernel.csproj" />
   </Folder>
+  <Folder Name="/src/Eventix.Booking/">
+    <Project Path="src/Eventix.Booking/Eventix.Booking.API/Eventix.Booking.API.csproj" />
+    <Project Path="src/Eventix.Booking/Eventix.Booking.Application/Eventix.Booking.Application.csproj" />
+    <Project Path="src/Eventix.Booking/Eventix.Booking.Domain/Eventix.Booking.Domain.csproj" />
+    <Project Path="src/Eventix.Booking/Eventix.Booking.Infrastructure/Eventix.Booking.Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/src/Eventix.EventCatalog/">
     <Project Path="src/Eventix.EventCatalog/Eventix.EventCatalog.API/Eventix.EventCatalog.API.csproj" />
     <Project Path="src/Eventix.EventCatalog/Eventix.EventCatalog.Application/Eventix.EventCatalog.Application.csproj" />
     <Project Path="src/Eventix.EventCatalog/Eventix.EventCatalog.Domain/Eventix.EventCatalog.Domain.csproj" />
     <Project Path="src/Eventix.EventCatalog/Eventix.EventCatalog.Infrastructure/Eventix.EventCatalog.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+  <Folder Name="/tests/Booking/">
+    <Project Path="tests/Booking/Eventix.Booking.Application.Tests/Eventix.Booking.Application.Tests.csproj" />
+    <Project Path="tests/Booking/Eventix.Booking.Domain.Tests/Eventix.Booking.Domain.Tests.csproj" />
+    <Project Path="tests/Booking/Eventix.Booking.Integration.Tests/Eventix.Booking.Integration.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tests/EventCatalog/">
+    <Project Path="tests/EventCatalog/Eventix.EventCatalog.Application.Tests/Eventix.EventCatalog.Application.Tests.csproj" />
+    <Project Path="tests/EventCatalog/Eventix.EventCatalog.Domain.Tests/Eventix.EventCatalog.Domain.Tests.csproj" />
+    <Project Path="tests/EventCatalog/Eventix.EventCatalog.Integration.Tests/Eventix.EventCatalog.Integration.Tests.csproj" />
   </Folder>
 </Solution>

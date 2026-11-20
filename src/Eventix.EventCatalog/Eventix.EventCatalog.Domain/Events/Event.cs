@@ -75,6 +75,8 @@ public class Event : AggregateRoot<Guid>
     /// </summary>
     public void Publish()
     {
+        CheckRule(new EventCanBePublishedRule(Status));
+
         if (Status == EventStatus.Published)
             throw new InvalidOperationException("Event is already published.");
 
@@ -89,6 +91,8 @@ public class Event : AggregateRoot<Guid>
     /// </summary>
     public void Cancel()
     {
+        CheckRule(new EventCanBeCancelledRule(Status));
+
         if (Status == EventStatus.Cancelled)
             return; // Idempotent
 

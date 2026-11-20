@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Eventix.Booking.Domain\Eventix.Booking.Domain.csproj" />
+    <ProjectReference Include="..\..\Eventix.SharedKernel\Eventix.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\..\Eventix.MicroserviceChassis\src\Eventix.Chassis.Core\Eventix.Chassis.Core.csproj" />
+    <ProjectReference Include="..\..\..\Eventix.MicroserviceChassis\src\Eventix.Chassis.Application\Eventix.Chassis.Application.csproj" />
+  </ItemGroup>
+</Project>

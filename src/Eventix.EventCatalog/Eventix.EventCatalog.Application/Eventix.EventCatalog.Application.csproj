@@ -1,19 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\Eventix.EventCatalog.Domain\Eventix.EventCatalog.Domain.csproj" />
     <ProjectReference Include="..\..\Eventix.SharedKernel\Eventix.SharedKernel.csproj" />
     <ProjectReference Include="..\..\..\Eventix.MicroserviceChassis\src\Eventix.Chassis.Core\Eventix.Chassis.Core.csproj" />
+    <ProjectReference Include="..\..\..\Eventix.MicroserviceChassis\src\Eventix.Chassis.Application\Eventix.Chassis.Application.csproj" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="14.2.0" />
+    <PackageReference Include="MediatR" />
   </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
 </Project>
