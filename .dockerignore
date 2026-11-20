@@ -1,15 +1,7 @@
 **/bin/
 **/obj/
-**/out/
+**/.git/
 **/.vs/
 **/.vscode/
-**/.git/
-**/.gitignore
+**/TestResults/
 **/*.user
-**/*.suo
-**/node_modules/
-**/logs/
-**/*.log
-**/docker-compose*.yml
-**/.env
-**/appsettings.Development.json
